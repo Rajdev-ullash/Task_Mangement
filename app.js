@@ -23,7 +23,15 @@ app.use(xss());
 app.use(hpp());
 
 //Body Parser Middleware implementation
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "50mb", extended: true }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
+app.use(bodyParser.text({ limit: "200mb" }));
 
 //Request Limiter Middleware implementation
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });

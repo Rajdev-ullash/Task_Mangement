@@ -13,6 +13,16 @@ router.put(
   UsersController.profileUpdate
 );
 
+router.get(
+  "/profileDetails",
+  AuthVerifyMiddleware,
+  UsersController.profileDetails
+);
+
+router.get("/RecoverVerifyEmail/:email", UsersController.RecoverVerifyEmail);
+router.get("/RecoverVerifyOTP/:email/:otp", UsersController.RecoverVerifyOTP);
+router.post("/RecoverResetPass", UsersController.RecoverResetPass);
+
 router.post("/createTask", AuthVerifyMiddleware, TasksController.createTask);
 router.get(
   "/updateTaskStatus/:id/:status",
