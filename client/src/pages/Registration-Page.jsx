@@ -1,7 +1,17 @@
-import React from "react";
+import React, { Fragment, Suspense, lazy } from "react";
+import LazyLoader from "../components/masterLayout/LazyLoader";
+const Registration = lazy(() =>
+  import("../components/Registration/Registration")
+);
 
 const RegistrationPage = () => {
-  return <div></div>;
+  return (
+    <Fragment>
+      <Suspense fallback={<LazyLoader />}>
+        <Registration />
+      </Suspense>
+    </Fragment>
+  );
 };
 
 export default RegistrationPage;

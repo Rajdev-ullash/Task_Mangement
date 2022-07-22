@@ -1,7 +1,11 @@
 import React from "react";
 
 const Forgetpass = () => {
-  return <div></div>;
+  return (
+    <div>
+      <h1>Forget Pass</h1>
+    </div>
+  );
 };
 
 export default Forgetpass;
