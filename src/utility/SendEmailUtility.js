@@ -11,12 +11,12 @@ const SendEmailUtility = async (EmailTo, EmailText, EmailSubject) => {
   //     host: "smtp.gmail.com",
   //   });
   let transporter = nodemailer.createTransport({
-    host: "mail.teamrabbil.com",
+    host: `${process.env.mail_host}`,
     port: 25,
     secure: false,
     auth: {
-      user: "info@teamrabbil.com",
-      pass: "~sR4[bhaC[Qs",
+      user: `${process.env.mail_user}`,
+      pass: `${process.env.mail_pass}`,
     },
     tls: {
       rejectUnauthorized: false,
@@ -26,7 +26,7 @@ const SendEmailUtility = async (EmailTo, EmailText, EmailSubject) => {
   // send mail with defined transport object
 
   let mailOptions = {
-    from: "Task Manager <test.email.raj@gmail.com>",
+    from: "Task Manager <TaskManager@rajdevullash.com>",
     to: EmailTo,
     subject: EmailSubject,
     text: EmailText,

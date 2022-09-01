@@ -50,7 +50,7 @@ exports.login = (req, res) => {
             exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60,
             data: data[0]["email"],
           };
-          let token = jwt.sign(Payload, "SecretKey12345678");
+          let token = jwt.sign(Payload, `${process.env.jwt_key}`);
           res.status(200).json({
             status: "success",
             token: token,

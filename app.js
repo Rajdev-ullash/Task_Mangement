@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const router = require("./src/routes/api");
+require("dotenv").config();
 
 //Security Middleware Lib import
 const rateLimit = require("express-rate-limit");
@@ -38,7 +39,7 @@ const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
 app.use(limiter);
 
 //Mongoose Connection
-let URI = "mongodb://localhost:27017/task-manager-api";
+let URI = `${process.env.server_database_uri}`;
 let OPTION = { autoIndex: true, useNewUrlParser: true };
 mongoose.connect(URI, OPTION, (err) => {
   if (err) {

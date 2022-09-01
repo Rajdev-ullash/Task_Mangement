@@ -17,7 +17,8 @@ import {
   setProgressTask,
 } from "../redux/state-slice/task-slice";
 import store from "../redux/store/store";
-const BaseURL = "http://localhost:5000/api/v1";
+// const BaseURL = "http://localhost:5000/api/v1";
+const BaseURL = "https://taskmanager.rajdevullash.com/api/v1";
 const AxiosHeader = { headers: { token: getToken() } };
 
 export function RegistrationRequest(
