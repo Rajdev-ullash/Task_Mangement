@@ -41,6 +41,36 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Navigate to="/Login" replace />} />
+            <Route
+              exact
+              path="/Create"
+              element={<Navigate to="/Login" replace />}
+            />
+            <Route
+              exact
+              path="/All"
+              element={<Navigate to="/Login" replace />}
+            />
+            <Route
+              exact
+              path="/Progress"
+              element={<Navigate to="/Login" replace />}
+            />
+            <Route
+              exact
+              path="/Completed"
+              element={<Navigate to="/Login" replace />}
+            />
+            <Route
+              exact
+              path="/Canceled"
+              element={<Navigate to="/Login" replace />}
+            />
+            <Route
+              exact
+              path="/Profile"
+              element={<Navigate to="/Login" replace />}
+            />
             <Route path="*" element={<Page404 />} />
             <Route exact path="/Login" element={<LoginPage />} />
             <Route exact path="/Registration" element={<RegistrationPage />} />
