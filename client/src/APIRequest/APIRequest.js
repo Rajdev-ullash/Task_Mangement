@@ -15,6 +15,7 @@ import {
   setCompletedTask,
   setNewTask,
   setProgressTask,
+  setPriorityTask,
 } from "../redux/state-slice/task-slice";
 import store from "../redux/store/store";
 // const BaseURL = "http://localhost:5000/api/v1";
@@ -109,7 +110,7 @@ export function LoginRequest(email, password) {
     });
 }
 
-export function NewTaskRequest(title, description) {
+export function NewTaskRequest(title, description, priority, duration, images) {
   store.dispatch(ShowLoader());
   let URL = BaseURL + "/createTask";
 
@@ -117,6 +118,9 @@ export function NewTaskRequest(title, description) {
     title: title,
     description: description,
     status: "New",
+    priority: priority,
+    duration: duration,
+    images: images,
   };
 
   return axios
@@ -156,6 +160,25 @@ export function TaskListByStatus(Status) {
         } else if (Status === "Progress") {
           store.dispatch(setProgressTask(result.data["data"]));
         }
+      } else {
+        ErrorToast("Something went wrong");
+      }
+    })
+    .catch((error) => {
+      store.dispatch(HideLoader());
+      ErrorToast("Something went wrong");
+    });
+}
+export function TaskListByPriority(Priority) {
+  store.dispatch(ShowLoader());
+  var URL = BaseURL + "/listTasksByPriority/" + Priority;
+  return axios
+    .get(URL, AxiosHeader)
+    .then((result) => {
+      console.log(result);
+      store.dispatch(HideLoader());
+      if (result.status === 200) {
+        store.dispatch(setPriorityTask(result.data["data"]));
       } else {
         ErrorToast("Something went wrong");
       }
@@ -218,6 +241,33 @@ export function UpdateStatusRequest(id, status) {
       store.dispatch(HideLoader());
       if (res.status === 200) {
         SuccessToast("Task Status Updated");
+        return true;
+      } else {
+        ErrorToast("Something went wrong");
+        return false;
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      store.dispatch(HideLoader());
+      ErrorToast("Something went wrong");
+      return false;
+    });
+}
+export function UpdateImageRequest(id, images) {
+  console.log(id, images);
+  store.dispatch(ShowLoader());
+  let URL = BaseURL + "/updateImages/" + id;
+  let PostBody = {
+    images: images,
+  };
+  return axios
+    .put(URL, PostBody, AxiosHeader)
+    .then((res) => {
+      console.log(res);
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+        SuccessToast("Image Updated");
         return true;
       } else {
         ErrorToast("Something went wrong");

@@ -13,6 +13,7 @@ import ForgetpassPage from "./pages/Forgetpass-Page";
 import LoginPage from "./pages/Login-Page";
 import NewPage from "./pages/New-Page";
 import Page404 from "./pages/Page-404";
+import PriorityPage from "./pages/Priority-Page";
 import ProfilePage from "./pages/Profile-Page";
 import ProgressPage from "./pages/Progress-Page";
 import RegistrationPage from "./pages/Registration-Page";
@@ -29,6 +30,7 @@ const App = () => {
             <Route exact path="/Completed" element={<CompletedPage />} />
             <Route exact path="/Canceled" element={<CanceledPage />} />
             <Route exact path="/Profile" element={<ProfilePage />} />
+            <Route exact path="/Priority" element={<PriorityPage />} />
             <Route path="*" element={<Page404 />} />
           </Routes>
         </BrowserRouter>
@@ -41,6 +43,11 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Navigate to="/Login" replace />} />
+            <Route
+              exact
+              path="/Priority"
+              element={<Navigate to="/Login" replace />}
+            />
             <Route
               exact
               path="/Create"

@@ -20,7 +20,7 @@ import { ErrorToast, IsEmpty } from "../../helper/FormHelper";
 import { useNavigate } from "react-router-dom";
 import Moment from "react-moment";
 import Countdown from "react-countdown";
-const New = () => {
+const Priority = () => {
   const [image, setImage] = React.useState(null);
   const [show, setShow] = useState(false);
   const [updateId, setUpdateId] = useState(null);
@@ -87,7 +87,7 @@ const New = () => {
     }
   };
 
-  const NewList = useSelector((state) => state.task.New);
+  const PriorityList = useSelector((state) => state.task.Priority);
 
   useEffect(() => {
     let d = new Date();
@@ -112,7 +112,7 @@ const New = () => {
       <div className="container-fluid content-body">
         <div className="row p-0 m-0">
           <div className="col-12 col-md-6 col-lg-8 px-3">
-            <h5>Task New</h5>
+            <h5>Priority List</h5>
           </div>
           {/* <div className="col-12 float-end col-md-6 col-lg-4 px-2">
             <div className="row">
@@ -130,7 +130,7 @@ const New = () => {
           </div> */}
         </div>
         <div className="row p-0 m-0">
-          {NewList.map((item, i) => (
+          {PriorityList.map((item, i) => (
             <div
               key={i.toString()}
               className="col-12 col-lg-4 col-sm-6 col-md-4 p-2"
@@ -292,4 +292,4 @@ const New = () => {
   );
 };
 
-export default New;
+export default Priority;

@@ -3,22 +3,56 @@ import { useNavigate } from "react-router-dom";
 import { NewTaskRequest } from "../../APIRequest/APIRequest";
 import { IsEmpty, ErrorToast } from "../../helper/FormHelper";
 const Create = () => {
+  const [image, setImage] = React.useState(null);
   let titleRef,
-    descriptionRef = useRef();
+    descriptionRef,
+    priorityRef,
+    durationRef = useRef();
   let navigate = useNavigate();
+
+  const uploadImage = async (e) => {
+    e.preventDefault();
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("key", "011f10ea5dfc25b71bac2efa547a3926");
+    data.append("image", files[0]);
+    const res = await fetch("https://api.imgbb.com/1/upload", {
+      method: "POST",
+      body: data,
+    });
+    const file = await res.json();
+    setImage(file.data.display_url);
+    console.log(file.data.display_url);
+  };
   const handleSubmit = () => {
     let title = titleRef.value;
     let description = descriptionRef.value;
+    let priority = priorityRef.value;
+    let duration = durationRef.value;
+    let images = image;
+    console.log(images);
+    console.log(title);
+    console.log(description);
+    console.log(priority);
+    console.log(duration);
     if (IsEmpty(title)) {
       ErrorToast("Title is required");
     } else if (IsEmpty(description)) {
       ErrorToast("Description is required");
+    } else if (IsEmpty(priority)) {
+      ErrorToast("Priority is required");
+    } else if (IsEmpty(images)) {
+      ErrorToast("Image is required");
+    } else if (IsEmpty(duration)) {
+      ErrorToast("Duration is required");
     } else {
-      NewTaskRequest(title, description).then((res) => {
-        if (res === true) {
-          navigate("/All");
+      NewTaskRequest(title, description, priority, duration, images).then(
+        (res) => {
+          if (res === true) {
+            navigate("/All");
+          }
         }
-      });
+      );
     }
   };
   return (
@@ -44,12 +78,49 @@ const Create = () => {
                   placeholder="Task Description"
                 />
                 <br />
-                <button
-                  onClick={handleSubmit}
-                  className="btn float-end btn-primary animated fadeInUp"
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  ref={(input) => (priorityRef = input)}
                 >
-                  Create
-                </button>
+                  <option selected>Select Priority</option>
+                  <option value="Urgent">Urgent</option>
+                  <option value="Avoid">Avoid</option>
+                  <option value="Later">Later</option>
+                  <option value="Banned">Banned</option>
+                </select>
+                <br />
+                <input
+                  type="date"
+                  ref={(input) => (durationRef = input)}
+                  className="form-control animated fadeInUp"
+                  placeholder="Select Task Duration"
+                />
+                <br />
+                <input
+                  type="file"
+                  onChange={(e) => uploadImage(e)}
+                  className="form-control animated fadeInUp"
+                  placeholder="Upload Your Image"
+                />
+                <br />
+                {/* if image value null or empty Create button disabled otherwise enable */}
+
+                {image === null || image === "" ? (
+                  <button
+                    onClick={handleSubmit}
+                    className="btn float-end btn-primary animated fadeInUp disabled"
+                  >
+                    Disabled
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleSubmit}
+                    className="btn float-end btn-primary animated fadeInUp"
+                  >
+                    Create
+                  </button>
+                )}
               </div>
             </div>
           </div>

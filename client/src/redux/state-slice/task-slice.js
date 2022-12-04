@@ -7,6 +7,7 @@ export const taskSlice = createSlice({
     Completed: [],
     Progress: [],
     Canceled: [],
+    Priority: [],
   },
   reducers: {
     setNewTask: (state, action) => {
@@ -21,6 +22,9 @@ export const taskSlice = createSlice({
     setCanceledTask: (state, action) => {
       state.Canceled = action.payload;
     },
+    setPriorityTask: (state, action) => {
+      state.Priority = action.payload;
+    },
   },
 });
 
@@ -29,6 +33,7 @@ export const {
   setCompletedTask,
   setProgressTask,
   setCanceledTask,
+  setPriorityTask,
 } = taskSlice.actions;
 
 export default taskSlice.reducer;
